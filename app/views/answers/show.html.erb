@@ -17,7 +17,7 @@
 
 <p>
   <strong>Image:</strong>
-  <%= @answer.image %>
+  <%= image_tag(@answer.image_url) if @answer.image.present? %>
 </p>
 
 <p>
