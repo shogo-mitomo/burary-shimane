@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @answer.user_id %>
+</p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @answer.question_id %>
+</p>
+
+<p>
+  <strong>Spot detail:</strong>
+  <%= @answer.spot_detail %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag(@answer.image_url) if @answer.image.present? %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @answer.address %>
+</p>
+
+<p>
+  <strong>Spot name:</strong>
+  <%= @answer.spot_name %>
+</p>
+
+<p>
+  <strong>Spot:</strong>
+  <%= @answer.spot_id %>
+</p>
+
+<%= link_to 'Edit', edit_answer_path(@answer) %> |
+<%= link_to 'Back', answers_path %>
