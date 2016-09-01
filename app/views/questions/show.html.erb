@@ -22,3 +22,10 @@
 
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>
+
+<div>
+<%= form_tag(new_answer_path, method: :get) do %>
+  <%= hidden_field_tag(:question_id, question.id) %>
+  <%= submit_tag("回答する") %>
+  <% end %>
+</div>
