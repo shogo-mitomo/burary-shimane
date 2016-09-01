@@ -13,7 +13,9 @@ class AnswersController < ApplicationController
 
   # GET /answers/new
   def new
+    @question = Question.find(params[:question_id])
     @answer = Answer.new
+    @answer.question_id = @question.id
   end
 
   # GET /answers/1/edit
@@ -24,9 +26,16 @@ class AnswersController < ApplicationController
   # POST /answers.json
   def create
     @spot = Spot.new
-    @spot[:spot_name]=answer_params[:spot_name]
-    @spot[:address]=answer_params[:address]
-    @answer = Answer.new(address: answer_params[:address], user_id: current_user.id, question_id: answer_params[:question_id], image: answer_params[:image], spot_detail: answer_params[:spot_detail], spot: @spot)
+    @spot[:name] = answer_params[:spot_name]
+    @spot[:address] = answer_params[:address]
+
+    @answer = @spot.answers.build(
+      address:     answer_params[:address],
+      user:        current_user,
+      question_id: answer_params[:question_id],
+      image:       answer_params[:image],
+      spot_detail: answer_params[:spot_detail]
+      )
 
     respond_to do |format|
       if @spot.save
