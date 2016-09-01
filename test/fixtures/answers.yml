@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  question_id: 1
+  spot_detail: MyText
+  image: MyText
+  address: MyString
+  spot_name: MyString
+  spot_id: 1
+
+two:
+  user_id: 1
+  question_id: 1
+  spot_detail: MyText
+  image: MyText
+  address: MyString
+  spot_name: MyString
+  spot_id: 1
