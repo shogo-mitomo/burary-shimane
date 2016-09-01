@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
 
@@ -62,13 +63,14 @@ class AnswersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_answer
-      @answer = Answer.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def answer_params
-      params.require(:answer).permit(:user_id, :question_id, :spot_detail, :image, :address, :spot_name, :spot_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_answer
+    @answer = Answer.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def answer_params
+    params.require(:answer).permit(:user_id, :question_id, :spot_detail, :image, :address, :spot_name, :spot_id)
+  end
 end
