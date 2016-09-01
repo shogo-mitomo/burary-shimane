@@ -1,6 +1,5 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
-
   # GET /answers
   # GET /answers.json
   def index
@@ -24,10 +23,14 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(answer_params)
+    @spot=Spot.new()
+    @spot[:spot_name]=answer_params[:spot_name]
+    @spot[:address]=answer_params[:address]
+    @answer = Answer.new(address: answer_params[:address], user_id: current_user.id, question_id: answer_params[:question_id], image: answer_params[:image], spot_detail: answer_params[:spot_detail], spot: @spot)
 
     respond_to do |format|
-      if @answer.save
+      if @spot.save
+        @answer.save
         format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: @answer }
       else
@@ -69,6 +72,6 @@ class AnswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def answer_params
-      params.require(:answer).permit(:user_id, :question_id, :spot_detail, :image, :address, :spot_name, :spot_id)
+      params.require(:answer).permit(:question_id, :spot_detail, :image, :address, :spot_name, :spot_id)
     end
-end
+  end
