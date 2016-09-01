@@ -14,9 +14,12 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
-  end
+	@question = Question.new
+# 	
+#	@question.user_id = prame[:user_id]
 
+  end
+  
   # GET /questions/1/edit
   def edit
   end
