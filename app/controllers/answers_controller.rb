@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
-
   # GET /answers
   # GET /answers.json
   def index
@@ -15,7 +14,9 @@ class AnswersController < ApplicationController
 
   # GET /answers/new
   def new
+    @question = Question.find(params[:question_id])
     @answer = Answer.new
+    @answer.question_id = @question.id
   end
 
   # GET /answers/1/edit
@@ -25,10 +26,21 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(answer_params)
+    @spot = Spot.new
+    @spot[:name] = answer_params[:spot_name]
+    @spot[:address] = answer_params[:address]
+
+    @answer = @spot.answers.build(
+      address:     answer_params[:address],
+      user:        current_user,
+      question_id: answer_params[:question_id],
+      image:       answer_params[:image],
+      spot_detail: answer_params[:spot_detail]
+      )
 
     respond_to do |format|
-      if @answer.save
+      if @spot.save
+        @answer.save
         format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: @answer }
       else
@@ -63,6 +75,7 @@ class AnswersController < ApplicationController
   end
 
   private
+
 
   # Use callbacks to share common setup or constraints between actions.
   def set_answer

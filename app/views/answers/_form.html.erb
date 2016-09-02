@@ -1,52 +1,39 @@
 <%= form_for(answer) do |f| %>
-  <% if answer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
+<% if answer.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
 
-      <ul>
-      <% answer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% answer.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :user_id %>
-    <%= f.number_field :user_id %>
-  </div>
+<div class="field">
+  <%= f.label :spot_detail %>
+  <%= f.text_area :spot_detail %>
+</div>
 
-  <div class="field">
-    <%= f.label :question_id %>
-    <%= f.number_field :question_id %>
-  </div>
+<div class="field">
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+</div>
 
-  <div class="field">
-    <%= f.label :spot_detail %>
-    <%= f.text_area :spot_detail %>
-  </div>
+<div class="field">
+  <%= f.label :address %>
+  <%= f.text_field :address %>
+</div>
 
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </div>
+<div class="field">
+  <%= f.label :spot_name %>
+  <%= f.text_field :spot_name %>
+</div>
 
-  <div class="field">
-    <%= f.label :address %>
-    <%= f.text_field :address %>
-  </div>
+<%= f.hidden_field :question_id %>
 
-  <div class="field">
-    <%= f.label :spot_name %>
-    <%= f.text_field :spot_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :spot_id %>
-    <%= f.number_field :spot_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="actions">
+<%= f.submit  "回答する"%>
+</div>
 <% end %>
