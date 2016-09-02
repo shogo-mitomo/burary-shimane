@@ -15,12 +15,11 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-	@question = Question.new
-# 	
-#	@question.user_id = prame[:user_id]
-
+    @question = Question.new
+    #
+    #	@question.user_id = prame[:user_id]
   end
-  
+
   # GET /questions/1/edit
   def edit
   end
@@ -32,17 +31,21 @@ class QuestionsController < ApplicationController
       title:       question_params[:title],
       address:     question_params[:address],
       user:        current_user,
-      content:     question_params[:content],
-      )
+      content:     question_params[:content]
+    )
 
     respond_to do |format|
-      if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
+      create_respond_format(format)
+    end
+  end
+
+  def create_respond_format(format)
+    if @question.save
+      format.html { redirect_to @question, notice: 'Question was successfully created.' }
+      format.json { render :show, status: :created, location: @question }
+    else
+      format.html { render :new }
+      format.json { render json: @question.errors, status: :unprocessable_entity }
     end
   end
 
