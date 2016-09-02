@@ -26,9 +26,10 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @spot = Spot.new
-    @spot[:name] = answer_params[:spot_name]
-    @spot[:address] = answer_params[:address]
+    @spot = Spot.new(
+      name: answer_params[:spot_name],
+      address: answer_params[:address]
+    )
 
     @answer = @spot.answers.build(
       address:     answer_params[:address],
@@ -36,17 +37,20 @@ class AnswersController < ApplicationController
       question_id: answer_params[:question_id],
       image:       answer_params[:image],
       spot_detail: answer_params[:spot_detail]
-      )
+    )
 
     respond_to do |format|
-      if @spot.save
-        @answer.save
-        format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
-        format.json { render :show, status: :created, location: @answer }
-      else
-        format.html { render :new }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
-      end
+      create_respond_format(format)
+    end
+  end
+
+  def create_respond_format(format)
+    if @spot.save
+      format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
+      format.json { render :show, status: :created, location: @answer }
+    else
+      format.html { render :new }
+      format.json { render json: @answer.errors, status: :unprocessable_entity }
     end
   end
 
@@ -75,7 +79,6 @@ class AnswersController < ApplicationController
   end
 
   private
-
 
   # Use callbacks to share common setup or constraints between actions.
   def set_answer
