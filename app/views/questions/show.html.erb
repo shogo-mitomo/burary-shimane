@@ -24,8 +24,17 @@
 <%= link_to 'Back', questions_path %>
 
 <div>
-<%= form_tag(new_answer_path, method: :get) do %>
+  <%= form_tag(new_answer_path, method: :get) do %>
   <%= hidden_field_tag(:question_id, @question.id) %>
   <%= submit_tag("回答する") %>
+  <% end %>
+</div>
+
+
+<div>
+  <% @question.answers.each do |answer| %>
+  <div>
+    <%= answer.spot_detail %>
+  </div>
   <% end %>
 </div>

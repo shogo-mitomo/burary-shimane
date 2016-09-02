@@ -87,4 +87,3 @@ class AnswersController < ApplicationController
     params.require(:answer).permit(:user_id, :question_id, :spot_detail, :image, :address, :spot_name, :spot_id)
   end
 end
->>>>>>> master

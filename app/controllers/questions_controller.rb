@@ -25,7 +25,12 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = Question.new(
+      title:       question_params[:title],
+      address:     question_params[:address],
+      user:        current_user,
+      content:     question_params[:content],
+      )
 
     respond_to do |format|
       if @question.save
@@ -71,6 +76,6 @@ class QuestionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def question_params
-    params.require(:question).permit(:title, :user_id, :content, :address)
+    params.require(:question).permit(:title, :content, :address)
   end
 end
