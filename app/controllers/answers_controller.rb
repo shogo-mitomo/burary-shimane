@@ -10,6 +10,13 @@ class AnswersController < ApplicationController
   # GET /answers/1
   # GET /answers/1.json
   def show
+    
+    @hash = Gmaps4rails.build_markers(@answer) do |answer, marker|
+      marker.lat answer.latitude
+      marker.lng answer.longitude
+      marker.infowindow answer.spot_detail
+      marker.json(title: answer.spot_name)
+    end
   end
 
   # GET /answers/new
