@@ -4,4 +4,7 @@ class Answer < ApplicationRecord
   belongs_to :spot
   belongs_to :question
   belongs_to :user
+
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
 end

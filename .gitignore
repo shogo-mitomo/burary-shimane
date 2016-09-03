@@ -260,3 +260,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /public/uploads
+/.env
+.env
