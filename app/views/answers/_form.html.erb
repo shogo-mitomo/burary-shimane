@@ -12,24 +12,26 @@
 <% end %>
 
 <div class="field">
-  <%= f.label :spot_detail %>
+  <%= f.label :spot_name, "紹介するスポットの名前" %>
+  <%= f.text_field :spot_name %>
+</div>
+
+<div class="field">
+  <%= f.label :spot_detail, "コメント"%>
   <%= f.text_area :spot_detail %>
 </div>
 
 <div class="field">
-  <%= f.label :image %>
+  <%= f.label :image, "写真" %>
   <%= f.file_field :image %>
 </div>
 
 <div class="field">
-  <%= f.label :address %>
+  <%= f.label :address, "スポットの住所"%>
   <%= f.text_field :address %>
 </div>
 
-<div class="field">
-  <%= f.label :spot_name %>
-  <%= f.text_field :spot_name %>
-</div>
+
 
 <%= f.hidden_field :question_id %>
 
