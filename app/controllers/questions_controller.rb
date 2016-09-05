@@ -5,16 +5,16 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    #こうするとquestionに関連付けられているデータまで一片に取得するので、
-    #データベースへのアクセス回数を減らせる。
+    # こうするとquestionに関連付けられているデータまで一片に取得するので、
+    # データベースへのアクセス回数を減らせる。
     @questions = Question.includes(:user).all
   end
 
   # GET /questions/1
   # GET /questions/1.json
   def show
-  	#一回でやった方が高速そうだったので、before_action(set_question)をせずにここでまとめました。
-		@question = Question.includes( {:answers => :user}).find(params[:id])
+    # 一回でやった方が高速そうだったので、before_action(set_question)をせずにここでまとめました。
+    @question = Question.includes(answers: :user).find(params[:id])
   end
 
   # GET /questions/new
