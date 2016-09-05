@@ -45,6 +45,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Use RuboCop for style check
   gem 'rubocop', require: false
+  gem 'annotate' # Annotate Rails classes with schema and routes info
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
