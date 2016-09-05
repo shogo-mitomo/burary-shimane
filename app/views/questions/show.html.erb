@@ -34,7 +34,8 @@
 <div>
   <% @question.answers.each do |answer| %>
   <div>
-    <%= answer.spot_detail %>
+  	<%= answer.user.name %><br>
+		<%= answer.spot_detail %>
   </div>
   <% end %>
 </div>
