@@ -6,12 +6,12 @@
 </p>
 
 <p>
-  <strong>User_Id:</strong>
-  <%= @question.user_id %>
+  <strong>User_Name:</strong>
+  <%= @question.user.name %>
 </p>
 
 <p>
-  <strong>Content</strong>
+  <strong>Content</strong><br>
   <%= @question.content %>
 </p>
 
@@ -19,17 +19,10 @@
   <strong>Address:</strong>
   <%= @question.address %>
 </p>
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
+<% if current_user.id == @question.user_id %>
+  <%= link_to 'Edit', edit_question_path(@question) %> |
+<% end %>
 <%= link_to 'Back', questions_path %>
-
-<div>
-  <%= form_tag(new_answer_path, method: :get) do %>
-  <%= hidden_field_tag(:question_id, @question.id) %>
-  <%= submit_tag("回答する") %>
-  <% end %>
-</div>
-
 
 <div>
   <% @question.answers.each do |answer| %>
@@ -37,5 +30,12 @@
   	<%= answer.user.name %><br>
 		<%= answer.spot_detail %>
   </div>
+  <% end %>
+</div>
+
+<div>
+  <%= form_tag(new_answer_path, method: :get) do %>
+  <%= hidden_field_tag(:question_id, @question.id) %>
+  <%= submit_tag("回答する") %>
   <% end %>
 </div>
