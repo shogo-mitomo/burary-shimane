@@ -6,7 +6,7 @@
 #  id          :integer          not null, primary key
 #  user_id     :integer          not null
 #  question_id :integer          not null
-#  spot_detail :text
+#  spot_detail :text             not null
 #  image       :text
 #  address     :string
 #  spot_name   :string
@@ -25,4 +25,6 @@ class Answer < ApplicationRecord
 
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
+
+  validates :spot_detail, presence: true
 end
