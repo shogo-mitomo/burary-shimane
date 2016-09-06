@@ -10,7 +10,6 @@ class AnswersController < ApplicationController
   # GET /answers/1
   # GET /answers/1.json
   def show
-    
     @hash = Gmaps4rails.build_markers(@answer) do |answer, marker|
       marker.lat answer.latitude
       marker.lng answer.longitude
@@ -28,6 +27,7 @@ class AnswersController < ApplicationController
 
   # GET /answers/1/edit
   def edit
+    redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。' unless current_user.id == @answer.user_id
   end
 
   # POST /answers
@@ -64,24 +64,32 @@ class AnswersController < ApplicationController
   # PATCH/PUT /answers/1
   # PATCH/PUT /answers/1.json
   def update
-    respond_to do |format|
-      if @answer.update(answer_params)
-        format.html { redirect_to @answer, notice: 'Answer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @answer }
-      else
-        format.html { render :edit }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
+    if current_user.id == @answer.user_id
+      respond_to do |format|
+        if @answer.update(answer_params)
+          format.html { redirect_to @answer, notice: 'Answer was successfully updated.' }
+          format.json { render :show, status: :ok, location: @answer }
+        else
+          format.html { render :edit }
+          format.json { render json: @answer.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。'
     end
   end
 
   # DELETE /answers/1
   # DELETE /answers/1.json
   def destroy
-    @answer.destroy
-    respond_to do |format|
-      format.html { redirect_to answers_url, notice: 'Answer was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.id == @answer.user_id
+      @answer.destroy
+      respond_to do |format|
+        format.html { redirect_to answers_url, notice: 'Answer was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。'
     end
   end
 
@@ -89,7 +97,7 @@ class AnswersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_answer
-    @answer = Answer.find(params[:id])
+    @answer = Answer.includes(:user, :spot).find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
-  <%= @answer.user_id %>
+  <strong>UserName:</strong>
+  <%= @answer.user.name %>
 </p>
 
 <p>
-  <strong>Question:</strong>
+  <strong>Question:(debug)</strong>
   <%= @answer.question_id %>
 </p>
 
@@ -35,8 +35,9 @@
   <%= @answer.spot_id %>
 </p>
 
-<%= link_to 'Edit', edit_answer_path(@answer) %> |
+<%= link_to 'Edit', edit_answer_path(@answer) if current_user.id == @answer.user_id%> |
 <%= link_to 'Back', answers_path %>
+
 <button id="map_button">map</button>
 
 <div style='width: 800px; display:none;' class='modal'>
