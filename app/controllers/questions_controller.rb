@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
           format.json { render json: @question.errors, status: :unprocessable_entity }
         end
       end
-    else 
+    else
       redirect_to home_index_path, notice: 'user_idが一致していません。'
     end
   end

@@ -27,7 +27,7 @@ class AnswersController < ApplicationController
 
   # GET /answers/1/edit
   def edit
-    redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。'  unless current_user.id == @answer.user_id
+    redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。' unless current_user.id == @answer.user_id
   end
 
   # POST /answers
@@ -75,7 +75,7 @@ class AnswersController < ApplicationController
         end
       end
     else
-      redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。' 
+      redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。'
     end
   end
 
@@ -89,7 +89,7 @@ class AnswersController < ApplicationController
         format.json { head :no_content }
       end
     else
-      redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。' 
+      redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。'
     end
   end
 
