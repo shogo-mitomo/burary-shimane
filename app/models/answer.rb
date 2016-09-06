@@ -6,7 +6,7 @@
 #  id          :integer          not null, primary key
 #  user_id     :integer          not null
 #  question_id :integer          not null
-#  spot_detail :text
+#  spot_detail :text             not null
 #  image       :text
 #  address     :string
 #  spot_name   :string

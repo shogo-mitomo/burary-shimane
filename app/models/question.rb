@@ -4,9 +4,9 @@
 # Table name: questions
 #
 #  id         :integer          not null, primary key
-#  title      :string
+#  title      :string           not null
 #  user_id    :integer          not null
-#  content    :text
+#  content    :text             not null
 #  address    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
