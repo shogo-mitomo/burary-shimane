@@ -15,4 +15,6 @@
 class Question < ApplicationRecord
   has_many :answers # :dependent => :destroy # [ryoma:bugFix]削除されたらそれに紐付くanswerも削除する
   belongs_to :user
+
+  validates :title, :content, presence: true
 end
