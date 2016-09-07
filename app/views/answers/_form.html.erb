@@ -1,4 +1,4 @@
-<%= form_for(answer), do |f| %>
+<%= form_for(answer) do |f| %>
 <% if answer.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
@@ -13,11 +13,11 @@
 
 <div class="field">
   <%= f.label :spot_name, "紹介するスポットの名前" %>
-  <%= f.text_field :spot_name :class = 'spot_list'%>
+  <%= f.text_field :spot_name %>
 </div>
 
 <div class="field">
-  <%= f.label :spot_detail, "コメント"%>
+  <%= f.label :spot_detail, "コメント (必須)"%>
   <%= f.text_area :spot_detail %>
 </div>
 
