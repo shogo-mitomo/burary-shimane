@@ -36,7 +36,7 @@ class AnswersController < ApplicationController
     @spot = Spot.new(
       name: answer_params[:spot_name],
       address: answer_params[:address]
-    )
+      )
 
     @answer = @spot.answers.build(
       address:     answer_params[:address],
@@ -44,7 +44,7 @@ class AnswersController < ApplicationController
       question_id: answer_params[:question_id],
       image:       answer_params[:image],
       spot_detail: answer_params[:spot_detail]
-    )
+      )
 
     respond_to do |format|
       create_respond_format(format)
@@ -90,6 +90,28 @@ class AnswersController < ApplicationController
       end
     else
       redirect_to home_index_path, notice: 'あなたは編集可能なuserではありません。'
+    end
+  end
+
+  #住所補完
+  def autocomplete_address
+    address_suggestions = Answer.autocomplete(params[:term]).pluck(:address)
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: address_suggestions
+      }
+    end
+  end
+
+  #スポット名補完
+  def autocomplete_name
+    address_suggestions = Spot.autocomplete(params[:term]).pluck(:name)
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: address_suggestions
+      }
     end
   end
 
