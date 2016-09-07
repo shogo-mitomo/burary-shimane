@@ -20,10 +20,10 @@
         <td><%= question.user.name %></td>
         <td><%= question.content %></td>
         <td><%= question.address %></td>
-        <td><%= link_to 'Show', question %></td>
+        <td><%= link_to '詳細', question %></td>
         <% if user_signed_in? && current_user.id == question.user_id %>
-          <td><%= link_to 'Edit', edit_question_path(question)  %></td>
-          <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to '編集', edit_question_path(question)  %></td>
+          <td><%= link_to '削除', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
     <% end %>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to '質問を投稿する', new_question_path %>
