@@ -27,4 +27,8 @@ class Answer < ApplicationRecord
   after_validation :geocode, if: :address_changed?
 
   validates :spot_detail, presence: true
+
+  scope :autocomplete, ->(term) {
+    where("address LIKE ?", "#{term}%").order(:address)
+  }
 end

@@ -7,5 +7,9 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :home
 
+  get 'answers/autocomplete_address/:term' => 'answers#autocomplete_address'
+
+  get 'answers/autocomplete_name/:term' => 'answers#autocomplete_name'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
