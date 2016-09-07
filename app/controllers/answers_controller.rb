@@ -44,7 +44,9 @@ class AnswersController < ApplicationController
       question_id: answer_params[:question_id],
       image:       answer_params[:image],
       spot_detail: answer_params[:spot_detail]
-      )
+    )
+    @answer.user_id = User::GUEST_ID unless user_signed_in?
+
 
     respond_to do |format|
       create_respond_format(format)
@@ -82,7 +84,8 @@ class AnswersController < ApplicationController
   # DELETE /answers/1
   # DELETE /answers/1.json
   def destroy
-    if current_user.id == @answer.user_id
+    # guestが作った回答か、作ったUser自身なら消せる
+    if @answer.user.guest? || (current_user.id == @answer.user_id)
       @answer.destroy
       respond_to do |format|
         format.html { redirect_to answers_url, notice: 'Answer was successfully destroyed.' }

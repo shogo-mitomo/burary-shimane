@@ -38,6 +38,7 @@ class QuestionsController < ApplicationController
       user:        current_user,
       content:     question_params[:content]
     )
+    @question.user_id = User::GUEST_ID unless user_signed_in?
 
     respond_to do |format|
       create_respond_format(format)
