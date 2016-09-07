@@ -13,4 +13,8 @@
 
 class Spot < ApplicationRecord
   has_many :answers
+
+  scope :autocomplete, ->(term){
+    where("name LIKE ?", "#{term}%").order(:name)
+  }
 end

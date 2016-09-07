@@ -36,12 +36,12 @@
 </p>
 
 <% if user_signed_in? && current_user.id == @answer.user_id %>
-  <%= link_to 'Edit', edit_answer_path(@answer) %> 
+  <%= link_to '編集', edit_answer_path(@answer) %>
   |
 <% end %>
- <%= link_to 'Back', question_path %>
+ <%= link_to '質問へ戻る', question_path(@answer.question_id) %>
 
-<button id="map-button">map</button>
+<button id="map-button">地図表示</button>
 <div style='display:none;' class='map-modal'>
   <div>
   <buttton class="close-modal" style="float:right">✖️</button>
