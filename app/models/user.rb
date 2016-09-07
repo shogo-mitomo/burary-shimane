@@ -31,9 +31,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :answers
   has_many :questions
-  
+
   GUEST_ID = 0
-  
+
   def guest?
     id == GUEST_ID
   end
