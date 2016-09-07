@@ -57,3 +57,11 @@ gem 'devise'
 gem 'dotenv-rails'
 gem 'geocoder'
 gem 'gmaps4rails'
+
+#heroku 用のgem
+group :production, :staging do
+  gem 'rails_12factor'
+  gem 'pg'
+end
+
+
