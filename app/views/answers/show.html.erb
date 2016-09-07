@@ -38,23 +38,30 @@
 <%= link_to 'Edit', edit_answer_path(@answer) if current_user.id == @answer.user_id%> |
 <%= link_to 'Back', answers_path %>
 
-<button id="map_button">map</button>
-
-<div style='width: 800px; display:none;' class='modal'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
+<button id="map-button">map</button>
+<div style='display:none;' class='map-modal'>
+  <div>
+  <buttton class="close-modal" style="float:right">✖️</button>
+  </div>
+  <div id="map" style='width: 100%; height: 100%;'>
+  </div>
 </div>
+
+
 
 <script type="text/javascript">
 
-  $('#map_button').click(function(){
-
-    $('.modal').fadeIn();
+  $('#map-button').click(function(){
+    $('.map-modal').fadeIn();
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
       markers = handler.addMarkers(<%=raw @hash.to_json %>);
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
       handler.getMap().setZoom(16);
+    });
+    $('.close-modal').click(function(){
+      $('.map-modal').fadeOut();
     });
   });
 </script>
