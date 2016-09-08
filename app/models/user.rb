@@ -16,7 +16,7 @@
 #  last_sign_in_ip        :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  name                   :string
+#  name                   :string(12)       not null
 #
 # Indexes
 #
@@ -31,7 +31,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :answers
   has_many :questions
-
+  
+  NAME_MAX_LENGTH = 12
+  
+  validates :name, presence: true, uniqueness: true, length: { maximum: NAME_MAX_LENGTH }
+  
   GUEST_ID = 0
 
   def guest?

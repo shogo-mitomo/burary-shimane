@@ -4,8 +4,8 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :name %><em>(6 characters maximum)</em><br />
-    <%= f.text_field :name, autofocus: true, maxlength: "6" %>
+    <%= f.label :name %><em>(<%= User::NAME_MAX_LENGTH %> characters maximum)</em><br />
+    <%= f.text_field :name, autofocus: true, maxlength: User::NAME_MAX_LENGTH %>
   </div>
 
   <div class="field">
