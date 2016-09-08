@@ -4,7 +4,6 @@
  </div>
  <div class="panel-body">
    <div><%= image_tag(answer.image, :class=> "img-responsive")%></div>
-   <div>説明：<span><%= answer.spot_detail %></span></div>
    <div>住所：<span><%= answer.spot.address %></span></div>
    <div><%= link_to '詳細', answer %>
      <% if user_signed_in? && current_user.id == answer.user_id %>

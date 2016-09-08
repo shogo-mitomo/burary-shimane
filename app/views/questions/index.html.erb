@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Questions</h1>
-
-
-<% @questions.each do |question| %>
-<%= render 'box', question: question %>
-<% end %>
+<div class="panel panel-default">
+  <h1 class="panel-heading">Questions</h1>
+  <div class="panel-body">
+    <% @questions.each do |question| %>
+    <%= render 'box', question: question %>
+    <% end %>
+  </div>
+</div>

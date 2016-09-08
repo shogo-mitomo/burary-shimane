@@ -4,7 +4,6 @@
       </div>
       <div class="panel-body">
             <div>質問者：<span><%= question.user.name %></span></div>
-            <div>質問内容：<span><%= question.content %></span></div>
             <div>現在地：<span><%= question.address %></span></div>
             <div><%= link_to '詳細', question %>
                   <% if user_signed_in? && current_user.id == question.user_id %>

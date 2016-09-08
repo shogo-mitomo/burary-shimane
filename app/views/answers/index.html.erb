@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Answers</h1>
-
-<% @answers.each do |answer| %>
-<%= render 'box', answer: answer%>
-<% end %>
+<div class="panel panel-default">
+  <h1 class="panel-heading">Answers</h1>
+  <div class="panel-body">
+    <% @answers.each do |answer| %>
+    <%= render 'box', answer: answer %>
+    <% end %>
+  </div>
+</div>
