@@ -28,7 +28,5 @@ class Answer < ApplicationRecord
 
   validates :spot_detail, presence: true
 
-  scope :autocomplete, ->(term) {
-    where("address LIKE ?", "#{term}%").order(:address)
-  }
+  scope :autocomplete, ->(term) { where('address LIKE ?', "#{term}%").order(:address) }
 end
