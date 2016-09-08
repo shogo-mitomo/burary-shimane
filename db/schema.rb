@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 20160908064459) do
     t.text     "spot_detail", null: false
     t.text     "image"
     t.string   "address"
-    t.string   "spot_name"
     t.integer  "spot_id",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "spot_name"
     t.float    "latitude"
     t.float    "longitude"
   end
