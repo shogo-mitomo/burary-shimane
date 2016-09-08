@@ -36,7 +36,7 @@ class AnswersController < ApplicationController
     @spot = Spot.new(
       name: answer_params[:spot_name],
       address: answer_params[:address]
-      )
+    )
 
     @answer = @spot.answers.build(
       address:     answer_params[:address],
@@ -45,12 +45,9 @@ class AnswersController < ApplicationController
       image:       answer_params[:image],
       spot_detail: answer_params[:spot_detail]
     )
-    @answer.user_id = User::GUEST_ID unless user_signed_in?
+    @answer.user = User.find(0) unless user_signed_in?
 
-
-    respond_to do |format|
-      create_respond_format(format)
-    end
+    respond_to { |format| create_respond_format(format) }
   end
 
   def create_respond_format(format)
@@ -96,25 +93,25 @@ class AnswersController < ApplicationController
     end
   end
 
-  #住所補完
+  # 住所補完
   def autocomplete_address
     address_suggestions = Answer.autocomplete(params[:term]).pluck(:address)
     respond_to do |format|
       format.html
-      format.json {
+      format.json do
         render json: address_suggestions
-      }
+      end
     end
   end
 
-  #スポット名補完
+  # スポット名補完
   def autocomplete_name
     address_suggestions = Spot.autocomplete(params[:term]).pluck(:name)
     respond_to do |format|
       format.html
-      format.json {
+      format.json do
         render json: address_suggestions
-      }
+      end
     end
   end
 

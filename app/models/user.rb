@@ -21,6 +21,7 @@
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_name                  (name) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
@@ -31,12 +32,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :answers
   has_many :questions
-  
+
   NAME_MAX_LENGTH = 12
-  
+
   validates :name, presence: true, uniqueness: true, length: { maximum: NAME_MAX_LENGTH }
-  
+
   GUEST_ID = 0
+  GUEST_NAME = 'ゲスト'
 
   def guest?
     id == GUEST_ID
