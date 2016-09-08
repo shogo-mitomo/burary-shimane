@@ -1,44 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @question.title %>
-</p>
 
-<p>
-  <strong>User_Name:</strong>
-  <%= @question.user.name %>
-</p>
-
-<p>
-  <strong>Content</strong><br>
-  <%= @question.content %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @question.address %>
-</p>
-<% if user_signed_in? && current_user.id == @question.user_id %>
-<%= link_to '編集', edit_question_path(@question) %> |
-<% end %>
-<%= link_to '質問一覧へ', questions_path %>
-
-<div>
-<h3>回答一覧</h3>
-  <% @question.answers.each do |answer| %>
-  <div>
-  	<%= answer.user.name %><span>さんの回答</span><br>
-    <%= answer.spot_detail %><br>
-    <%= link_to '詳細' ,answer_path(answer.id)%>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="bs-component">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">質問概要</a></li>
+        <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">質問詳細</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="home">
+         <%= render 'box', question: @question %>
+       </div>
+       <div class="tab-pane fade" id="profile">
+        <div class="well well-lg"><%= @question.content %></div>
+      </div>
+    </div>
   </div>
-  <br>
-  <% end %>
+</div>
 </div>
 
-<div>
+<div class="btn btn-default btn-lg btn-block" style="background-color:green;">
   <%= form_tag(new_answer_path, method: :get) do %>
   <%= hidden_field_tag(:question_id, @question.id) %>
   <%= submit_tag("回答する") %>
   <% end %>
 </div>
+<br>
+
+<div class="panel panel-default" >
+  <h1 class="panel-heading">回答一覧</h1>
+  <div class="panel-body">
+    <% @question.answers.each do |answer| %>
+    <%= render 'answers/box', answer: answer %>
+    <% end %>
+  </div>
+</div>
+
+
+

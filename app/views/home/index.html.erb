@@ -1,8 +1,21 @@
-<h1>ぶらり島根途中下車の旅</h1>
-<div>
-  <%= link_to "質問する", new_question_path %>
-</div>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="bs-component">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">アプリ概要</a></li>
+        <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">投稿写真一覧</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="home">
+          <em class="text-muted">このアプリは、島根県に旅行に来た方に向けて、地元の人がオススメスポットを紹介する場を提供するために製作されました。このアプリを使い、縁結びの県島根で少しでも多くの方が幸せなご縁にめぐりあえることを願っています。</em>
+        </div>
+        <div class="tab-pane fade" id="profile">
+          <%@answers.each do |answer|%>
+          <div><%=image_tag(answer.image, :class=> "img-responsive ,center-block")%></div>
+          <%end%>
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div>
-  <%= link_to "質問一覧", questions_path %>
-</div>

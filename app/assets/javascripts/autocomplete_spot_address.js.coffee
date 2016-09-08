@@ -1,5 +1,5 @@
 $ ->
-  $("#user_address_field").autocomplete
+  $(".spot_address_field").autocomplete
     source: (req, res) ->
       $.ajax
         url: "/answers/autocomplete_address/" + encodeURIComponent(req.term) + ".json",

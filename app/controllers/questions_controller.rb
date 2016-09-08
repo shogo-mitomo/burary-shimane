@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
   def index
     # こうするとquestionに関連付けられているデータまで一片に取得するので、
     # データベースへのアクセス回数を減らせる。
-    @questions = Question.includes(:user).all
+    @questions = Question.includes(:user).all.order("id DESC")
   end
 
   # GET /questions/1

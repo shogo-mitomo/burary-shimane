@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :answers
   resources :questions
-  root 'home#index'
+  root 'questions#index'
+  get 'home/index'=>'home/index'
+
   resources :home
 
   get 'answers/autocomplete_address/:term' => 'answers#autocomplete_address'

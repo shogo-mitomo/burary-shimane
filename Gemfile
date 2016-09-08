@@ -64,5 +64,8 @@ group :production, :staging do
   gem 'rails_12factor'
   gem 'pg'
 end
+gem 'honoka-rails', '>= 3.3.6.3'
+
+
 
 
