@@ -63,8 +63,13 @@ gem 'gmaps4rails'
 group :production, :staging do
   gem 'rails_12factor'
   gem 'pg'
+  gem 'thin'
 end
 gem 'honoka-rails', '>= 3.3.6.3'
+
+gem 'cloudinary'
+
+gem 'heroku'
 
 
 
