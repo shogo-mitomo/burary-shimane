@@ -1,6 +1,4 @@
 
-
-
 $(function(){
     $('.spot_address_field').autocomplete({
         source: function( req, res ) {
