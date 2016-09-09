@@ -1,35 +1,9 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Questions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>User_Name</th>
-      <th>Content</th>
-      <th>Address</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="panel panel-default">
+  <h1 class="panel-heading">Questions</h1>
+  <div class="panel-body">
     <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.title %></td>
-        <td><%= question.user.name %></td>
-        <td><%= question.content %></td>
-        <td><%= question.address %></td>
-        <td><%= link_to '詳細', question %></td>
-        <% if user_signed_in? && current_user.id == question.user_id %>
-          <td><%= link_to '編集', edit_question_path(question)  %></td>
-          <td><%= link_to '削除', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+    <%= render 'box', question: question %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to '質問を投稿する', new_question_path %>
+  </div>
+</div>

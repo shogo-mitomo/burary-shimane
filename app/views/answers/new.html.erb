@@ -2,4 +2,4 @@
 
 <%= render 'form', answer: @answer %>
 
-<%= link_to '戻る', "#{questions_path}/#{@answer.question_id}" %>
+<%= link_to '質問へ戻る', "#{questions_path}/#{@answer.question_id}", class:"btn btn-primary btn-lg", style: "background-color:#ffcccc;" %>

@@ -1,0 +1,16 @@
+ <div class="panel panel-info">
+  <div class="panel-heading">
+   <h3 class="panel-title"><%= answer.spot.name %></h3>
+ </div>
+ <div class="panel-body">
+   <div><%= image_tag(answer.image_url, :class=> "img-responsive")%></div>
+   <div>住所：<span><%= answer.spot.address %></span></div>
+   <div><%= link_to '詳細', answer %>
+     <% if user_signed_in? && current_user.id == answer.user_id %>
+     <span><%= link_to '編集', edit_answer_path(answer) %></span>
+     <span><%= link_to '削除', answer, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+     <%end%>
+   </div>
+ </div>
+</div>
+<br>

@@ -1,0 +1,18 @@
+<div class="panel panel-info">
+      <div class="panel-heading">
+            <h3 class="panel-title"><%= question.title %></h3>
+      </div>
+      <div class="panel-body">
+            <div>質問者：<span><%= question.user.name %></span></div>
+            <div>現在地：<span><%= question.address %></span></div>
+            <div><%= link_to '詳細', question %>
+                  <% if user_signed_in? && current_user.id == question.user_id %>
+                  <span><%= link_to '編集', edit_question_path(question)  %></span>
+                  <span><%= link_to '削除', question, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+                  <% end %>
+            </div>
+      </div>
+</div>
+<br>
+
+

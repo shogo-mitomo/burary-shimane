@@ -1,69 +1,110 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>UserName:</strong>
-  <%= @answer.user.name %>
-</p>
 
-<p>
-  <strong>Question:(debug)</strong>
-  <%= @answer.question_id %>
-</p>
 
-<p>
-  <strong>Spot detail:</strong>
-  <%= @answer.spot_detail %>
-</p>
 
-<p>
-  <strong>Image:</strong>
-  <%= image_tag(@answer.image_url) if @answer.image.present? %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @answer.address %>
-</p>
-
-<p>
-  <strong>Spot name:</strong>
-  <%= @answer.spot.name %>
-</p>
-
-<p>
-  <strong>Spot:</strong>
-  <%= @answer.spot_id %>
-</p>
-
-<% if user_signed_in? && current_user.id == @answer.user_id %>
-  <%= link_to '編集', edit_answer_path(@answer) %>
-  |
-<% end %>
- <%= link_to '質問へ戻る', question_path(@answer.question_id) %>
-
-<button id="map-button">地図表示</button>
-<div style='display:none;' class='map-modal'>
-  <div>
-  <buttton class="close-modal" style="float:right">✖️</button>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="bs-component">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">回答概要</a></li>
+        <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">回答詳細</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="home">
+         <%= render 'box', answer: @answer %>
+       </div>
+       <div class="tab-pane fade" id="profile">
+        <div class="well well-lg">
+          <%= @answer.spot_detail %><br>
+          <button id="map-button">地図表示</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="map" style='width: 100%; height: 100%;'>
-  </div>
+</div>
 </div>
 
 
-<script type="text/javascript">
 
-  $('#map-button').click(function(){
-    $('.map-modal').fadeIn();
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers(<%=raw @hash.to_json %>);
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-      handler.getMap().setZoom(16);
-    });
-    $('.close-modal').click(function(){
-      $('.map-modal').fadeOut();
+
+
+<div class="col-lg-6">
+  <div class="bs-component">
+    <div class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content" style='height:500px;'>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          </div>
+          <div class="modal-body" id="map" style='height:80%;'>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="nabi_button">経路検索</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $(function() {
+    $('#map-button').click(function(){
+      $('.modal').fadeIn();
+      handler = Gmaps.build('Google');
+      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+        markers = handler.addMarkers(<%=raw @hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        handler.getMap().setZoom(16);
+
+        //経路検索機能
+        $('#nabi_button').click(function(){
+          navigator.geolocation.getCurrentPosition(
+           function successFunc( position )
+           {
+            var myLatLng = {lat: position.coords.latitude, lng: position.coords.longitude};
+            var marker = handler.addMarkers({
+              position: myLatLng,
+              map: map,
+              title: 'myplace'
+            });
+            // var distance = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, ;
+            // alert(myLatLng.lat);
+          } ,
+          function( error )
+          {
+            var errorInfo = [
+            "原因不明のエラーが発生しました…。" ,
+            "位置情報の取得が許可されませんでした…。" ,
+            "電波状況などで位置情報が取得できませんでした…。" ,
+            "位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
+            ] ;
+            var errorNo = error.code ;
+            var errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
+            alert( errorMessage ) ;
+          } ,
+          {
+            "enableHighAccuracy": false,
+            "timeout": 8000,
+            "maximumAge": 2000,
+          }
+          );
+        });
+
+      });
+      $('.close').click(function(){
+        $('.modal').fadeOut();
+      });
     });
   });
 </script>

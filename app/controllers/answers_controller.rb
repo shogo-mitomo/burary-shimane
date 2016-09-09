@@ -4,12 +4,13 @@ class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.json
   def index
-    @answers = Answer.all
+    @answers = Answer.all.order("id DESC")
   end
 
   # GET /answers/1
   # GET /answers/1.json
   def show
+    #現在地を取得して@answerに追加したい
     @hash = Gmaps4rails.build_markers(@answer) do |answer, marker|
       marker.lat answer.latitude
       marker.lng answer.longitude
