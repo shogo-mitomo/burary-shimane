@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hz08sh8d2
+  api_key: '761919923227378'
+  api_secret: u4Eapou8ciPM7RtoyNtNQuxyNFg
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hz08sh8d2
+  api_key: '761919923227378'
+  api_secret: u4Eapou8ciPM7RtoyNtNQuxyNFg
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hz08sh8d2
+  api_key: '761919923227378'
+  api_secret: u4Eapou8ciPM7RtoyNtNQuxyNFg
+  enhance_image_tag: true
+  static_image_support: false

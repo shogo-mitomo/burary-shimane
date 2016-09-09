@@ -10,6 +10,7 @@ class AnswersController < ApplicationController
   # GET /answers/1
   # GET /answers/1.json
   def show
+    #現在地を取得して@answerに追加したい
     @hash = Gmaps4rails.build_markers(@answer) do |answer, marker|
       marker.lat answer.latitude
       marker.lng answer.longitude
@@ -36,7 +37,7 @@ class AnswersController < ApplicationController
     @spot = Spot.new(
       name: answer_params[:spot_name],
       address: answer_params[:address]
-    )
+      )
 
     @answer = @spot.answers.build(
       address:     answer_params[:address],
@@ -44,7 +45,7 @@ class AnswersController < ApplicationController
       question_id: answer_params[:question_id],
       image:       answer_params[:image],
       spot_detail: answer_params[:spot_detail]
-    )
+      )
     @answer.user = User.find(0) unless user_signed_in?
 
     respond_to { |format| create_respond_format(format) }
