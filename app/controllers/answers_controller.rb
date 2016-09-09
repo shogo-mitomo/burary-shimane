@@ -33,11 +33,15 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @spot = Spot.new(
-      name: answer_params[:spot_name],
-      address: answer_params[:address]
-    )
-
+    
+    @spot = Spot.find_or_initialize_by(name: answer_params[:spot_name])
+    if @spot.new_record?
+     @spot = Spot.new(
+       name: answer_params[:spot_name],
+       address: answer_params[:address]
+      )
+    end
+    
     @answer = @spot.answers.build(
       address:     answer_params[:address],
       user:        current_user,
@@ -45,11 +49,26 @@ class AnswersController < ApplicationController
       image:       answer_params[:image],
       spot_detail: answer_params[:spot_detail]
     )
-    @answer.user = User.find(0) unless user_signed_in?
-
-    respond_to { |format| create_respond_format(format) }
+    @answer.user_id = User::GUEST_ID unless user_signed_in?
+    
+    if @spot.new_record?
+      respond_to { |format| create_respond_format(format) }
+    else
+      @answer.spot.point += 1
+      @answer.spot.update_attribute(:point, @answer.spot.point)
+      respond_to do |format|
+        if @answer.save
+          format.html { redirect_to @answer, notice: 'Binding of the spot, it succeeded to answer.' }
+          format.json { render :show, status: :created, location: @answer }
+        else
+          format.html { render :new }
+          format.json { render json: @answer.errors, status: :unprocessable_entity }
+        end
+      end
+    end
   end
 
+  # spot&answer save
   def create_respond_format(format)
     if @spot.save
       format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
@@ -59,6 +78,7 @@ class AnswersController < ApplicationController
       format.json { render json: @answer.errors, status: :unprocessable_entity }
     end
   end
+  
 
   # PATCH/PUT /answers/1
   # PATCH/PUT /answers/1.json
