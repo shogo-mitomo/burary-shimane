@@ -1,5 +1,4 @@
 
-
 $(function(){
     $('.spot_name_field').autocomplete({
         source: function( req, res ) {
